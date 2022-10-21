@@ -1,0 +1,51 @@
+
+<div class="container">
+
+  <app-products></app-products>
+  
+    <header class="jumbotron">
+      <h3>Add Product</h3>  
+    <hr />  
+    <form [formGroup]="employeeForm" (ngSubmit)="save()" #formDir="ngForm" novalidate>  
+        <div class="form-group row"> <label class=" control-label col-md-12" for="productName">Product Name</label>  
+            <div class="col-md-4"> <input class="form-control" type="text" formControlName="productName"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'firstName') && formDir.submitted">  
+Product Name is required.  
+</span> </div>  
+        <div class="form-group row"> <label class=" control-label col-md-12" for="shortDescription">Short Descriprion</label>  
+            <div class="col-md-4"> <input class="form-control" type="text" formControlName="shortDescription"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'lastName') && formDir.submitted">  
+Short Descriprion is required.  
+</span> </div>  
+        <div class="form-group row"> <label class="control-label col-md-12" for="detailDescription">Detail Descriprion</label>  
+            <div class="col-md-4"> <input class="form-control" type="text" formControlName="detailDescription"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'detailDescription') && formDir.submitted">  
+Detail Descriprion is required  
+</span> </div>  
+        <div class="form-group row"> <label class="control-label col-md-12" for="category">Category</label>  
+            <div class="col-md-4"> 
+              <select class="form-control" id="exampleCategory" required  formControlName="category">
+                <option>Select Category</option>
+                <option *ngFor="let category of categoryTypes"
+                        [ngValue]="category">{{category.type}}</option>
+              </select>
+              <!-- <input class="form-control" type="text" formControlName="category">  -->
+            </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'category') && formDir.submitted">  
+Category is required  
+</span> </div>  
+        <div class="form-group row"> <label class="control-label col-md-12" for="startingPrice">Starting Price</label>  
+            <div class="col-md-4"> <input class="form-control" type="text" formControlName="startingPrice"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'startingPrice') && formDir.submitted">  
+Starting Price is required  
+</span> </div>  
+        <div class="form-group row"> <label class="control-label col-md-12" for="bidEndDate">Bid End Date</label>  
+            <div class="col-md-4"> 
+              <ejs-datetimepicker id='datetimepicker' formControlName="bidEndDate" placeholder='Select a datetime ' [value]= 'dateValue' format ='yyyy.MM.dd HH:mm'></ejs-datetimepicker>
+              <!-- <input class="form-control" type="text" formControlName="bidEndDate">  -->
+            </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'bidEndDate') && formDir.submitted">  
+Bid End Date is required  
+</span> </div>  
+        
+          
+        <div class="form-group"> <button type="submit" class="btn btn-default">Save</button> <button class="btn" (click)="cancel()">Cancel</button> </div>  
+    </form> 
+    </header>
+  </div>
+
+  

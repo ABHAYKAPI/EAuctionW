@@ -1,0 +1,22 @@
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Product Name</th>
+            <th>Short Description</th>
+            <th>Category</th>
+            <th>Starting Price</th>
+            <th>Bid EndDate</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let product of products">
+        <td>{{product.ProductName}}</td>
+        <td>{{product.ShortDescription}}</td>
+        <td>{{product.Category}}</td>
+        <td>{{product.StartingPrice}}</td>
+        <td>{{product.BidEndDate}}</td>
+        <td>
+            <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(product.ProductID)">Delete</i>
+        </td>
+    </tr>
+</table>
