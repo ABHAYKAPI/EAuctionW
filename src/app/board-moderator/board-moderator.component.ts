@@ -31,6 +31,7 @@ export class BoardModeratorComponent implements OnInit {
     public products:any=[];
     public bidDetails:any;
     selectedCategory:any;
+    isShowBidDetails:boolean;
 
     public minDate: Date = new Date ("05/07/2022 2:00 AM");
 
@@ -42,8 +43,8 @@ export class BoardModeratorComponent implements OnInit {
         //     this.employeeId = this._avRoute.snapshot.params["employeeID"];  
         //     //alert(this.employeeId);  
         // }  
-        this.getProucts();
-        
+       
+        this.isShowBidDetails=false;
         this.employeeForm = this._fb.group({  
             productName: ['', [Validators.required]],  
             shortDescription: ['', [Validators.required]],  
@@ -54,7 +55,7 @@ export class BoardModeratorComponent implements OnInit {
         }) ;
 
         this.categoryTypes = CategoryMapping;
-        
+        this.getProucts();
     }  
     ngOnInit() {  
         if (this.employeeId > 0) {  
@@ -67,9 +68,8 @@ export class BoardModeratorComponent implements OnInit {
       debugger;
       this._productService.getProduct().subscribe((response) => 
       {
-        debugger; 
         this.products= JSON.parse(response.data);
-        
+        debugger; 
     }, error => this.errorMessage = error) 
     }
     
@@ -106,10 +106,9 @@ export class BoardModeratorComponent implements OnInit {
     }  
 
     GetBidDtailsByID(){
-      debugger;
-      alert(this.selectedCategory);
       this._productService.getBidDetailsByProductID(this.selectedCategory.ProductID).subscribe((resp) => {  
         this.bidDetails= JSON.parse(resp.data); 
+        this.isShowBidDetails=true;
       });
 
     }

@@ -24,8 +24,13 @@ Detail Descriprion is required
               <select class="form-control" id="exampleCategory" required  formControlName="category">
                 <option>Select Category</option>
                 <option *ngFor="let category of categoryTypes"
-                        [ngValue]="category">{{category.type}}</option>
+                        [value]="category">{{category.type}}</option>
               </select>
+
+              <!-- <option *ngFor="let product of products" [value]="product.id">
+                {{product.name}}
+              </option -->
+
               <!-- <input class="form-control" type="text" formControlName="category">  -->
             </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'category') && formDir.submitted">  
 Category is required  

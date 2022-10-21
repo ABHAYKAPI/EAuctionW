@@ -20,3 +20,8 @@
         </td>
     </tr>
 </table>
+
+<select class="form-control" id="exampleCategory">
+        <option>Select Category</option>
+        <option *ngFor="let product of products"[value]="product">{{product.ProductName}}</option>
+</select>

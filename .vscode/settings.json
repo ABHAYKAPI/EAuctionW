@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/fa476f7d-5955-4a2b-b8d5-02e2c9f0fdff/AppServices/subscriptions/fa476f7d-5955-4a2b-b8d5-02e2c9f0fdff/resourceGroups/EAuction_Abhay/providers/Microsoft.Web/sites/EAuctionWEBsite",
+    "appService.deploySubpath": "dist\\EAuctionWEB"
+}

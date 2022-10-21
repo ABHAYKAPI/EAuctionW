@@ -1,55 +1,76 @@
 <div class="container">
-    <header class="jumbotron">
-      <h3>Add Product</h3>  
-    <hr />  
-    <form [formGroup]="employeeForm" (ngSubmit)="save()" #formDir="ngForm" novalidate> 
+  <header>
+    <h3>Show Bid Details</h3>  
+    <hr />
 
-        <div class="form-group row"> <label class="control-label col-md-12" for="product">Category</label>  
-            <div class="col-md-4"> 
-              <select class="form-control" id="exampleCategory" [(ngModel)]="selectedCategory" formControlName="category" required>
-                <option>Select Category</option>
-                <option *ngFor="let product of products"
-                        [ngValue]="product">{{product.ProductName}}</option>
-              </select>
-              <!-- <input class="form-control" type="text" formControlName="category">  -->
-            </div> 
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-default" (click)="GetBidDtailsByID()">GetDetails</button>  </div>
-            <span class="text-danger" *ngIf="employeeForm.hasError('required', 'category') && formDir.submitted">  
-Category is required  
-</span> </div>  
+  <div class="form-group row"> 
+    
+    <div class="col-md-20">
+      <label class=" control-label col-md-12" for="productName">Product Name</label> 
+     </div> 
+    <div class="col-md-20"> 
+     <select class="form-control" id="exampleCategory" [(ngModel)]="selectedCategory">
+      <option>Select Category</option>
+      <option *ngFor="let product of products" [ngValue]="product">{{product.ProductName}}</option>
+     </select>
+    </div> 
+    <div class="col-md-4"> 
+      <button class="btn" (click)="GetBidDtailsByID()">Get Details</button>
+     </div> 
+  </div> 
+  
+  <div *ngIf="isShowBidDetails">
+    <div class="form-group row">   
+      <div class="col-md-4"> 
+       Product Name : {{bidDetails.ProductName}}
+      </div> 
+    </div> 
+    <div class="form-group row">   
+      <div class="col-md-4"> 
+       Short Description : {{bidDetails.ShortDescription}}
+      </div> 
+    </div> 
+    <div class="form-group row">   
+      <div class="col-md-4"> 
+       Category : {{bidDetails.Category}}
+      </div> 
+    </div> 
+    <div class="form-group row">   
+      <div class="col-md-4"> 
+       Detail Descriprion: {{bidDetails.DetailDescription}}
+      </div> 
+    </div> 
+    <div class="form-group row">   
+      <div class="col-md-4"> 
+       Starting Price Descriprion: {{bidDetails.DetailDescription}}
+      </div> 
+    </div> 
+    <div class="form-group row">   
+      <div class="col-md-4"> 
+       Bid End Date: {{bidDetails.DetailDescription}}
+      </div> 
+    </div> 
 
-        <div class="form-group row"> <label class=" control-label col-md-12" for="productName">Product Name</label>  
-            <div class="col-md-4"> <input class="form-control" type="text" formControlName="productName"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'firstName') && formDir.submitted">  
-Product Name is required.  
-</span> </div>  
-        <div class="form-group row"> <label class=" control-label col-md-12" for="shortDescription">Short Descriprion</label>  
-            <div class="col-md-4"> <input class="form-control" type="text" formControlName="shortDescription"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'lastName') && formDir.submitted">  
-Short Descriprion is required.  
-</span> </div>  
-        <div class="form-group row"> <label class="control-label col-md-12" for="detailDescription">Detail Descriprion</label>  
-            <div class="col-md-4"> <input class="form-control" type="text" formControlName="detailDescription"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'detailDescription') && formDir.submitted">  
-Detail Descriprion is required  
-</span> </div>  
-        
-        <div class="form-group row"> <label class="control-label col-md-12" for="startingPrice">Starting Price</label>  
-            <div class="col-md-4"> <input class="form-control" type="text" formControlName="startingPrice"> </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'startingPrice') && formDir.submitted">  
-Starting Price is required  
-</span> </div>  
-        <div class="form-group row"> <label class="control-label col-md-12" for="bidEndDate">Bid End Date</label>  
-            <div class="col-md-4"> 
-              <ejs-datetimepicker id='datetimepicker' formControlName="bidEndDate" placeholder='Select a datetime ' [value]= 'dateValue' format ='yyyy.MM.dd HH:mm'></ejs-datetimepicker>
-              <!-- <input class="form-control" type="text" formControlName="bidEndDate">  -->
-            </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'bidEndDate') && formDir.submitted">  
-Bid End Date is required  
-</span> </div>  
-        
-          
-        <div class="form-group"> 
-            <button type="submit" class="btn btn-default">Save</button> 
-            <button class="btn" (click)="cancel()">Cancel</button> </div>  
-    </form> 
-    </header>
+    <table class="table">
+      <thead class="thead-light">
+          <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Bid Amount</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              
+          </tr>
+      </thead>
+      <tr *ngFor="let seller of bidDetails.seller">
+          <td>{{seller.FirstName}}</td>
+          <td>{{seller.LastName}}</td>
+          <td>{{seller.BidAMount}}</td>
+          <td>{{seller.Email}}</td>
+          <td>{{seller.Phone}}</td>
+      </tr>
+    </table>
   </div>
 
-  
+</header> 
+</div>
