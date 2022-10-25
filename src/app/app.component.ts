@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
-
+debugger;
       this.showAdminBoard = this.roles.includes('Buyer');
       this.showModeratorBoard = this.roles.includes('Seller');
 
-      this.username = user.username;
+      this.username = user.userName;
     }
   }
 

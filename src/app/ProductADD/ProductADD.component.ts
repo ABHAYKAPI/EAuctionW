@@ -12,27 +12,36 @@ import {
   FormControl  
 } from '@angular/forms';  
 import {DatePipe} from '@angular/common';
-
-
 @Component({
-  selector: 'app-board-moderator',
-  templateUrl: './board-moderator.component.html',
-  styleUrls: ['./board-moderator.component.css']
+  selector: 'app-product',
+  templateUrl: './ProductAdd.component.html',
+  styleUrls: ['./ProductAdd.component.css']
 })
-export class BoardModeratorComponent implements OnInit {
+export class BoardAdminComponent implements OnInit {
 
-  product:Product;
+  // content: string;
+
+  // constructor(private userService: UserService) { }
+
+  // ngOnInit(): void {
+  //   this.userService.getAdminBoard().subscribe(
+  //     data => {
+  //       this.content = data;
+  //     },
+  //     err => {
+  //       this.content = JSON.parse(err.error).message;
+  //     }
+  //   );
+  // }
+
+   product:Product;
   employeeForm: FormGroup;  
     title: string = "Create";  
     employeeId: number;  
     errorMessage: any; 
     public categoryTypes;
     enumKeys=[];
-    public products:any=[];
-    public bidDetails:any;
-    selectedCategory:any;
-    isShowBidDetails:boolean;
-
+    
     public minDate: Date = new Date ("05/07/2022 2:00 AM");
 
     public maxDate: Date = new Date ("05/27/2025 11:00 AM");
@@ -43,8 +52,7 @@ export class BoardModeratorComponent implements OnInit {
         //     this.employeeId = this._avRoute.snapshot.params["employeeID"];  
         //     //alert(this.employeeId);  
         // }  
-       
-        this.isShowBidDetails=false;
+        
         this.employeeForm = this._fb.group({  
             productName: ['', [Validators.required]],  
             shortDescription: ['', [Validators.required]],  
@@ -55,65 +63,46 @@ export class BoardModeratorComponent implements OnInit {
         }) ;
 
         this.categoryTypes = CategoryMapping;
-        this.getProucts();
+        
     }  
     ngOnInit() {  
         if (this.employeeId > 0) {  
             this.title = "Edit";  
             //this._employeeService.getEmployeeById(this.employeeId).subscribe(resp => this.employeeForm.setValue(resp), error => this.errorMessage = error);  
         }  
-    } 
-    
-    getProucts(){
-      debugger;
-      this._productService.getProduct().subscribe((response) => 
-      {
-        this.products= JSON.parse(response.data);
-        debugger; 
-    }, error => this.errorMessage = error) 
-    }
-    
+    }  
     save() {  
         if (!this.employeeForm.valid) {  
             return;  
         }  
-        if(this.title == "Create") 
+        if 
+        (this.title == "Create") 
         {  
+debugger;
 
          this.product={
-           "productName":this.employeeForm.value.productName,
-           "shortDescription" : this.employeeForm.value.shortDescription,
-           "detailDescription":this.employeeForm.value.detailDescription,
-           "category" : this.employeeForm.value.category.value,
-           "startingPrice" :this.employeeForm.value.startingPrice,
-           "bidEndDate" : this.employeeForm.value.bidEndDate,
-           "createdBy":'System'
+            "productName":this.employeeForm.value.productName,
+            "shortDescription" : this.employeeForm.value.shortDescription,
+            "detailDescription":this.employeeForm.value.detailDescription,
+            "category" : this.employeeForm.value.category.value,
+            "startingPrice" :parseFloat(this.employeeForm.value.startingPrice),
+            "bidEndDate" : this.employeeForm.value.bidEndDate,
+            "createdBy":'System'
          }
 
 
-              this._productService.saveProduct(this.product).subscribe((data) => {  
-                  this._router.navigate(['/employee-data']);  
-              }, error => this.errorMessage = error)  
-          // } else if (this.title == "Edit") {  
-          //     this._employeeService.updateEmployee(this.employeeForm.value).subscribe((data) => {  
-          //         this._router.navigate(['/employee-data']);  
-          //     }, error => this.errorMessage = error)  
-        }  
+            this._productService.saveProduct(this.product).subscribe((data) => {  
+                this._router.navigate(['/home']);  
+            }, error => this.errorMessage = error)  
+        // } else if (this.title == "Edit") {  
+        //     this._employeeService.updateEmployee(this.employeeForm.value).subscribe((data) => {  
+        //         this._router.navigate(['/employee-data']);  
+        //     }, error => this.errorMessage = error)  
+         }  
     }  
-
     cancel() {  
-        this._router.navigate(['/home']);  
+       // this._router.navigate(['/employee-data']);  
     }  
-
-    GetBidDtailsByID(){
-      this._productService.getBidDetailsByProductID(this.selectedCategory.ProductID).subscribe((resp) => {  
-        this.bidDetails= JSON.parse(resp.data); 
-        this.isShowBidDetails=true;
-      });
-
-    }
-
-
     get firstName() {  
         return this.employeeForm.get('firstName');  
     }  
@@ -181,18 +170,19 @@ export class BoardModeratorComponent implements OnInit {
 }
 
 export const CategoryMapping = [
-  { value: "Painting", type: 'Painting' },
-  { value: "Sculptor", type: 'Sculptor'},
-  { value: "Ornament", type: 'Ornament'},
-];
+    { value: "Painting", type: 'Painting' },
+    { value: "Sculptor", type: 'Sculptor'},
+    { value: "Ornament", type: 'Ornament'},
+  ];
 
 
 export class Product{
-  productName :string;
-  shortDescription :string;
-   detailDescription :string;
-   category :string;
-   startingPrice :number;
-   bidEndDate:string;
-   createdBy :string;
+   productName :string;
+   shortDescription :string;
+    detailDescription :string;
+    category :string;
+    startingPrice :number;
+    bidEndDate:string;
+    createdBy :string;
 }
+

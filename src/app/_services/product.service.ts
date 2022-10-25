@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-const PRODUCT_API = 'https://sellerapi20221021132637.azurewebsites.net/api/v1/Seller';
+//const PRODUCT_API = 'https://sellerapi20221021132637.azurewebsites.net/api/v1/Seller';
+
+const PRODUCT_API = 'http://localhost:52280/api/v1/Seller'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,7 +23,6 @@ export class ProductService {
   }
 
   saveProduct(product:any): Observable<any> {
-    debugger;
     return this.http.post(PRODUCT_API+'/Add', product, httpOptions);
   }
 

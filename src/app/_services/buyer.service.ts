@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-const PRODUCT_API = 'https://buyerapi20221021133033.azurewebsites.net/api/v1/Buyer';
+//const PRODUCT_API = 'https://buyerapi20221021133033.azurewebsites.net/api/v1/Buyer';
+
+const PRODUCT_API = 'http://localhost:39088/api/v1/Buyer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

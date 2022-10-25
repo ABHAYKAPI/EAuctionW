@@ -1,8 +1,5 @@
-
 <div class="container">
-
   <app-products></app-products>
-  
     <header class="jumbotron">
       <h3>Add Product</h3>  
     <hr />  
@@ -26,12 +23,6 @@ Detail Descriprion is required
                 <option *ngFor="let category of categoryTypes"
                         [value]="category">{{category.type}}</option>
               </select>
-
-              <!-- <option *ngFor="let product of products" [value]="product.id">
-                {{product.name}}
-              </option -->
-
-              <!-- <input class="form-control" type="text" formControlName="category">  -->
             </div> <span class="text-danger" *ngIf="employeeForm.hasError('required', 'category') && formDir.submitted">  
 Category is required  
 </span> </div>  

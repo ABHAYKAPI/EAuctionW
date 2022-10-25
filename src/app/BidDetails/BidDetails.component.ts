@@ -1,58 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../_services/product.service';
-import {  
-  Route,
-  Router  
-} from '@angular/router';  
-import {  
-  NgForm,  
-  FormBuilder,  
-  FormGroup,  
-  Validators,  
-  FormControl  
-} from '@angular/forms';  
-import {DatePipe} from '@angular/common';
+import { Router } from '@angular/router';  
+import { FormBuilder,  FormGroup, Validators  } from '@angular/forms';  
+
 @Component({
-  selector: 'app-board-admin',
-  templateUrl: './board-admin.component.html',
-  styleUrls: ['./board-admin.component.css']
+  selector: 'bid-details',
+  templateUrl: './BidDetails.component.html',
+  styleUrls: ['./BidDetails.component.css']
 })
-export class BoardAdminComponent implements OnInit {
 
-  // content: string;
+export class BoardModeratorComponent implements OnInit {
 
-  // constructor(private userService: UserService) { }
-
-  // ngOnInit(): void {
-  //   this.userService.getAdminBoard().subscribe(
-  //     data => {
-  //       this.content = data;
-  //     },
-  //     err => {
-  //       this.content = JSON.parse(err.error).message;
-  //     }
-  //   );
-  // }
-
-   product:Product;
+  product:Product;
   employeeForm: FormGroup;  
     title: string = "Create";  
     employeeId: number;  
     errorMessage: any; 
     public categoryTypes;
     enumKeys=[];
-    
+    public products:any=[];
+    public bidDetails:any;
+    public bids:any;
+    selectedCategory:any;
+    isShowBidDetails:boolean;
+
     public minDate: Date = new Date ("05/07/2022 2:00 AM");
-
     public maxDate: Date = new Date ("05/27/2025 11:00 AM");
-
     public dateValue: Date = new Date ("05/16/2022 5:00 AM");
+
     constructor(private _fb: FormBuilder,private _router :Router,public _productService:ProductService) {  
-        // if (this._avRoute.snapshot.params["employeeID"]) {  
-        //     this.employeeId = this._avRoute.snapshot.params["employeeID"];  
-        //     //alert(this.employeeId);  
-        // }  
-        
+        this.isShowBidDetails=false;
         this.employeeForm = this._fb.group({  
             productName: ['', [Validators.required]],  
             shortDescription: ['', [Validators.required]],  
@@ -63,46 +40,67 @@ export class BoardAdminComponent implements OnInit {
         }) ;
 
         this.categoryTypes = CategoryMapping;
-        
+        this.getProucts();
     }  
     ngOnInit() {  
         if (this.employeeId > 0) {  
             this.title = "Edit";  
             //this._employeeService.getEmployeeById(this.employeeId).subscribe(resp => this.employeeForm.setValue(resp), error => this.errorMessage = error);  
         }  
-    }  
+    } 
+    
+    getProucts(){
+      this._productService.getProduct().subscribe((response) => 
+      {
+        this.products= JSON.parse(response.data);
+    }, error => this.errorMessage = error) 
+    }
+    
     save() {  
         if (!this.employeeForm.valid) {  
             return;  
         }  
-        if 
-        (this.title == "Create") 
+        if(this.title == "Create") 
         {  
-debugger;
 
          this.product={
-            "productName":this.employeeForm.value.productName,
-            "shortDescription" : this.employeeForm.value.shortDescription,
-            "detailDescription":this.employeeForm.value.detailDescription,
-            "category" : this.employeeForm.value.category.value,
-            "startingPrice" :parseFloat(this.employeeForm.value.startingPrice),
-            "bidEndDate" : this.employeeForm.value.bidEndDate,
-            "createdBy":'System'
+           "productName":this.employeeForm.value.productName,
+           "shortDescription" : this.employeeForm.value.shortDescription,
+           "detailDescription":this.employeeForm.value.detailDescription,
+           "category" : this.employeeForm.value.category.value,
+           "startingPrice" :this.employeeForm.value.startingPrice,
+           "bidEndDate" : this.employeeForm.value.bidEndDate,
+           "createdBy":'System'
          }
 
 
-            this._productService.saveProduct(this.product).subscribe((data) => {  
-                this._router.navigate(['/home']);  
-            }, error => this.errorMessage = error)  
-        // } else if (this.title == "Edit") {  
-        //     this._employeeService.updateEmployee(this.employeeForm.value).subscribe((data) => {  
-        //         this._router.navigate(['/employee-data']);  
-        //     }, error => this.errorMessage = error)  
-         }  
+              this._productService.saveProduct(this.product).subscribe((data) => {  
+                  this._router.navigate(['/employee-data']);  
+              }, error => this.errorMessage = error)  
+        }  
     }  
+
     cancel() {  
-       // this._router.navigate(['/employee-data']);  
+        this._router.navigate(['/home']);  
     }  
+
+    GetBidDtailsByID(){
+      if(this.selectedCategory.ProductID != undefined){
+        this._productService.getBidDetailsByProductID(this.selectedCategory.ProductID).subscribe((resp) => {  
+            this.bidDetails= JSON.parse(resp.data);
+            debugger;
+            this.bids = this.bidDetails.seller;
+            this.isShowBidDetails=true;
+          });
+      }
+      else{
+        this.isShowBidDetails=false;
+      }
+      
+
+    }
+
+
     get firstName() {  
         return this.employeeForm.get('firstName');  
     }  
@@ -170,19 +168,18 @@ debugger;
 }
 
 export const CategoryMapping = [
-    { value: "Painting", type: 'Painting' },
-    { value: "Sculptor", type: 'Sculptor'},
-    { value: "Ornament", type: 'Ornament'},
-  ];
+  { value: "Painting", type: 'Painting' },
+  { value: "Sculptor", type: 'Sculptor'},
+  { value: "Ornament", type: 'Ornament'},
+];
 
 
 export class Product{
-   productName :string;
-   shortDescription :string;
-    detailDescription :string;
-    category :string;
-    startingPrice :number;
-    bidEndDate:string;
-    createdBy :string;
+  productName :string;
+  shortDescription :string;
+   detailDescription :string;
+   category :string;
+   startingPrice :number;
+   bidEndDate:string;
+   createdBy :string;
 }
-
