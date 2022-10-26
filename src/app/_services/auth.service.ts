@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 //const AUTH_API = 'https://authenticationwebapi20221020173359.azurewebsites.net/api/Account';
 
@@ -15,7 +16,10 @@ const httpOptions = {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  isLoggdIn = false;
+  roleAs:string;
+
+  constructor(private http: HttpClient,private tokenStorageService:TokenStorageService) { }
 
   login(credentials): Observable<any> {
     debugger;
@@ -25,11 +29,22 @@ export class AuthService {
     }, httpOptions);
   }
 
-  register(user): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
-      username: user.username,
-      email: user.email,
-      password: user.password
-    }, httpOptions);
+  
+
+  isLoggedIn() {
+    const loggedIn = localStorage.getItem('STATE');
+
+    this.isLoggdIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn)
+      return true;
+    else
+      return false;
+  }
+
+  getRole() {
+    const user = this.tokenStorageService.getUser();
+    this.roleAs = user.roles;
+    return this.roleAs;
   }
 }
