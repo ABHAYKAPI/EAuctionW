@@ -66,8 +66,6 @@ export class ProductsComponent implements OnInit {
         if 
         (this.title == "Create") 
         {  
-debugger;
-
          this.product={
            "productName":this.employeeForm.value.productName,
            "shortDescription" : this.employeeForm.value.shortDescription,
@@ -104,10 +102,8 @@ debugger;
 
    
     getProucts(){
-      debugger;
       this._productService.getProduct().subscribe((response) => 
       {
-        debugger; 
         this.products= JSON.parse(response.data);
         
     }, error => this.errorMessage = error) 

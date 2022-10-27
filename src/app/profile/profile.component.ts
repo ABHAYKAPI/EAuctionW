@@ -13,7 +13,6 @@ export class ProfileComponent implements OnInit {
   constructor(private token: TokenStorageService) { }
 
   ngOnInit(): void {
-    debugger;
     this.currentUser = this.token.getUser();
   }
 

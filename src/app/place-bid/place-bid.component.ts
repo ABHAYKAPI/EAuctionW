@@ -64,7 +64,6 @@ export class PlaceBidComponent implements OnInit {
         }  
     }  
     save() {  
-        debugger;
         if (!this.bidDetailsForm.valid) {  
             return;  
         }  

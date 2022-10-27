@@ -78,8 +78,6 @@ export class BoardAdminComponent implements OnInit {
         if 
         (this.title == "Create") 
         {  
-debugger;
-
          this.product={
             "productName":this.employeeForm.value.productName,
             "shortDescription" : this.employeeForm.value.shortDescription,

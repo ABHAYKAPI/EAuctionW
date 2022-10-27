@@ -22,7 +22,6 @@ export class AuthService {
   constructor(private http: HttpClient,private tokenStorageService:TokenStorageService) { }
 
   login(credentials): Observable<any> {
-    debugger;
     return this.http.post(AUTH_API, {
       username: credentials.username,
       password: credentials.password

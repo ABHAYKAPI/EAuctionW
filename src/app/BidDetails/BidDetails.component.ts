@@ -88,7 +88,6 @@ export class BoardModeratorComponent implements OnInit {
       if(this.selectedCategory.ProductID != undefined){
         this._productService.getBidDetailsByProductID(this.selectedCategory.ProductID).subscribe((resp) => {  
             this.bidDetails= JSON.parse(resp.data);
-            debugger;
             this.bids = this.bidDetails.seller;
             this.isShowBidDetails=true;
           });
