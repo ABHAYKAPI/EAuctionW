@@ -12,6 +12,7 @@ import {
   FormControl  
 } from '@angular/forms';  
 import {DatePipe} from '@angular/common';
+import { ProductService } from '../_services/product.service';
 
 @Component({
   selector: 'app-place-bid',
@@ -28,11 +29,12 @@ export class PlaceBidComponent implements OnInit {
     errorMessage: any; 
     public categoryTypes;
     enumKeys=[];
+    public products:any=[];
     
     public minDate: Date = new Date ("05/07/2022 2:00 AM");
     public maxDate: Date = new Date ("05/27/2025 11:00 AM");
     public dateValue: Date = new Date ("05/16/2022 5:00 AM");
-    constructor(private _fb: FormBuilder,private _router :Router,public _buyerService:BuyerService) {  
+    constructor(private _fb: FormBuilder,private _router :Router,public _buyerService:BuyerService,public _productService:ProductService) {  
         // if (this._avRoute.snapshot.params["employeeID"]) {  
         //     this.employeeId = this._avRoute.snapshot.params["employeeID"];  
         //     //alert(this.employeeId);  
@@ -47,9 +49,10 @@ export class PlaceBidComponent implements OnInit {
             pin: ['', [Validators.required]],
             phone: ['', [Validators.required]],  
             email: ['', [Validators.required]],  
-            product: ['', [Validators.required]],  
+            productID: ['', [Validators.required]],  
             bidAmount: ['', [Validators.required]],  
         }) ;
+        this.getProucts();
 
         this.categoryTypes = CategoryMapping;
         
@@ -61,32 +64,32 @@ export class PlaceBidComponent implements OnInit {
         }  
     }  
     save() {  
+        debugger;
         if (!this.bidDetailsForm.valid) {  
             return;  
         }  
-        if 
-        (this.title == "Create") 
+        if(this.title == "Create") 
         {  
-debugger;
 
          this.bidDetails={
+            "firstName":this.bidDetailsForm.value.firstName,
+            "lastName":this.bidDetailsForm.value.lastName,
+            "address":this.bidDetailsForm.value.address,
+            "city":this.bidDetailsForm.value.city,
+            "pin":this.bidDetailsForm.value.pin,
+            "state":this.bidDetailsForm.value.state,
+            "email":this.bidDetailsForm.value.email,
+            "phone":this.bidDetailsForm.value.phone,
+            "productID":this.bidDetailsForm.value.productID.ProductID,
+            "bidAmount":parseFloat(this.bidDetailsForm.value.bidAmount),
+            "createdBy":"system"
 
-          "firstName":this.bidDetailsForm.value.firstName,
-   "lastName":this.bidDetailsForm.value.lastName,
-    "address":this.bidDetailsForm.value.address,
-    "city":this.bidDetailsForm.value.city,
-    "pin":this.bidDetailsForm.value.pin,
-    "email":this.bidDetailsForm.value.email,
-    "phone":this.bidDetailsForm.value.phone,
-    "productID":this.bidDetailsForm.value.productID,
-    "bidAmount":this.bidDetailsForm.value.bidAmount,
-    "createdBy":"system"
-
-           
+              
          }
 
-
+         
             this._buyerService.saveProduct(this.bidDetails).subscribe((data) => {  
+                alert("Data Saved Successfully");
                 this._router.navigate(['/home']);  
             }, error => this.errorMessage = error)  
         // } else if (this.title == "Edit") {  
@@ -94,7 +97,15 @@ debugger;
         //         this._router.navigate(['/employee-data']);  
         //     }, error => this.errorMessage = error)  
          }  
-    }  
+    } 
+
+    getProucts(){
+        this._productService.getProduct().subscribe((response) => 
+        {
+          this.products= JSON.parse(response.data);
+      }, error => this.errorMessage = error) 
+    }
+
     cancel() {  
        // this._router.navigate(['/employee-data']);  
     }  
@@ -180,7 +191,8 @@ export class BidDetails{
     phone:string;
     email :string;
     productID:string;
-    bidAmount:string;
+    bidAmount:number;
     createdBy:string;
+    state:string;
 }
 

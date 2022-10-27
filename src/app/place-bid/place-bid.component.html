@@ -37,17 +37,17 @@ Detail Descriprion is required
 </span> </div> 
           <div class="form-group row"> <label class="control-label col-md-12" for="category">Product</label>  
               <div class="col-md-4"> 
-                <select class="form-control" id="exampleCategory" required  formControlName="category">
+                <select class="form-control" id="exampleCategory" required  formControlName="productID">
                   <option>Select Category</option>
-                  <option *ngFor="let category of categoryTypes"
-                          [ngValue]="category">{{category.type}}</option>
+                  <option *ngFor="let product of products"
+                          [ngValue]="product">{{product.ProductName}}</option>
                 </select>
                 <!-- <input class="form-control" type="text" formControlName="category">  -->
               </div> <span class="text-danger" *ngIf="bidDetailsForm.hasError('required', 'category') && formDir.submitted">  
   Category is required  
   </span> </div>  
-          <div class="form-group row"> <label class="control-label col-md-12" for="startingPrice">Bid AMount</label>  
-              <div class="col-md-4"> <input class="form-control" type="text" formControlName="startingPrice"> </div> <span class="text-danger" *ngIf="bidDetailsForm.hasError('required', 'startingPrice') && formDir.submitted">  
+          <div class="form-group row"> <label class="control-label col-md-12" for="bidAmount">Bid AMount</label>  
+              <div class="col-md-4"> <input class="form-control" type="text" formControlName="bidAmount"> </div> <span class="text-danger" *ngIf="bidDetailsForm.hasError('required', 'startingPrice') && formDir.submitted">  
   Starting Price is required  
   </span> </div>  
             

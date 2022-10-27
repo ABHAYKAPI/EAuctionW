@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 //const PRODUCT_API = 'https://buyerapi20221021133033.azurewebsites.net/api/v1/Buyer';
 
-const PRODUCT_API = 'eauctionapigateway20221027164428.azurewebsites.net/apigateway/v1/product';
+const PRODUCT_API = 'https://eauctionapigateway20221027164428.azurewebsites.net/apigateway/v1/Buyer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
