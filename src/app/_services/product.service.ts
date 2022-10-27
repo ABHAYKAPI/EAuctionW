@@ -3,9 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-//const PRODUCT_API = 'https://sellerapi20221021132637.azurewebsites.net/api/v1/Seller';
+//const PRODUCT_API = 'https://sellerapi20221027172405.azurewebsites.net/api/v1/Seller';
 
-const PRODUCT_API = 'http://localhost:52280/api/v1/Seller'
+const PRODUCT_API="https://eauctionapigateway20221027164428.azurewebsites.net/apigateway/v1/Seller";
+
+// const PRODUCT_API = 'http://localhost:52280/api/v1/Seller'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

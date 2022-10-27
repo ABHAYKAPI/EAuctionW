@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../_services/token-storage.service';
 
-//const AUTH_API = 'https://authenticationwebapi20221020173359.azurewebsites.net/api/Account';
+const AUTH_API = 'https://eauctionapigateway20221027164428.azurewebsites.net/apigateway/v1/Account';
 
-const AUTH_API = 'http://localhost:36469/api/Account';
+//const AUTH_API = 'http://localhost:36469/api/Account';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
